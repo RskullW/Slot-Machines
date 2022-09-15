@@ -8,18 +8,17 @@ public:
         return _sInstance = (_sInstance != nullptr)?_sInstance: new GameManager();
     }
     void Initialize(const char* title, int xpos, int ypos, int w, int h, bool fullscreen);
-    void Display(std::string message);
+    static void Display(const std::string& message);
     void Update();
-    void HandleEvenets();
+    static void HandleEvents();
     void Renderer();
     void Tick();
     void Clean();
     
-    bool GetRunning(); 
+    bool GetRunning() const; 
+    void SetRunning(bool running);
 private:
-    GameManager() {
-        _isInitialize = false;
-    }
+    GameManager() {}
     
     static GameManager* _sInstance;
     bool _isRunning = true;

@@ -1,3 +1,9 @@
 # ninja log v5
-1	1216	6849637143333230	CMakeFiles/Slot_Machines.dir/main.cpp.obj	7aba2ddfcb5d4c67
-1219	1683	6849637148007441	Slot_Machines.exe	2242291c6b903ae3
+3	850	6849691742890091	CMakeFiles/Slot_Machines.dir/main.cpp.obj	7aba2ddfcb5d4c67
+850	1212	6849691746500821	Slot_Machines.exe	7508816d1444f4
+8	844	6849691742820282	CMakeFiles/Slot_Machines.dir/src/GameManager.cpp.obj	27d764ede52976b4
+15	1059	6849774081298227	CMakeFiles/Slot_Machines.dir/src/Timer.cpp.obj	e4560fa3544ae5a
+7	1064	6849774081318174	CMakeFiles/Slot_Machines.dir/src/Input.cpp.obj	19d598a14c6935e9
+3	1069	6849774081338127	CMakeFiles/Slot_Machines.dir/src/GameManager.cpp.obj	27d764ede52976b4
+2	791	6849774257233614	CMakeFiles/Slot_Machines.dir/main.cpp.obj	7aba2ddfcb5d4c67
+792	1294	6849774262240206	Slot_Machines.exe	73df38fd44405d60

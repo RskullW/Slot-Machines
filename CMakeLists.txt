@@ -28,10 +28,12 @@ link_directories(${SDL2_MIXER_LIB_DIR})
 
 file(GLOB cpphfiles
         "*.h"
+        "src/*.h"
         "*.cpp"
+        "src/*.cpp"
         )
 
-add_executable(Slot_Machines ${cpphfiles} src/GameManager.cpp src/GameManager.h)
+add_executable(Slot_Machines ${cpphfiles} src/Axis.h src/Timer.cpp src/Timer.h)
 target_link_libraries(${PROJECT_NAME} SDL2main SDL2 SDL2_image SDL2_ttf SDL2_mixer )
 
 
