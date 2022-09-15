@@ -1,1 +1,4 @@
-﻿enum Axis { HORIZONTAL, VERTICAL };
+﻿enum Axis { 
+    HORIZONTAL, 
+    VERTICAL 
+};

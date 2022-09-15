@@ -5,14 +5,14 @@
 class GameManager {
 public:
     static GameManager* GetInstance() {
-        return _sInstance = (_sInstance != nullptr)?_sInstance: new GameManager();
+        return _instance = (_instance != nullptr)?_instance: new GameManager();
     }
     void Initialize(const char* title, int xpos, int ypos, int w, int h, bool fullscreen);
     static void Display(const std::string& message);
     void Update();
     static void HandleEvents();
     void Renderer();
-    void Tick();
+    SDL_Renderer* GetRenderer();
     void Clean();
     
     bool GetRunning() const; 
@@ -20,8 +20,8 @@ public:
 private:
     GameManager() {}
     
-    static GameManager* _sInstance;
+    static GameManager* _instance;
     bool _isRunning = true;
-    SDL_Window* m_pWindow;
-    SDL_Renderer* m_pRenderer;
+    SDL_Window* _window;
+    SDL_Renderer* _renderer;
 };
