@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <utility>
 #include "GameManager.h"
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_ttf.h"
@@ -6,6 +7,7 @@
 #include "Input.h"
 #include "TextureManager.h"
 #include "Background.h"
+#include "SoundsManager.h"
 
 GameManager* GameManager::_instance = nullptr; 
 
@@ -43,16 +45,22 @@ void GameManager::Initialize(const char* title, int xpos, int ypos, int w, int h
     }
     
     TextureManager::GetInstance()->ParseTextures("../Assets/Parse/texture.tml");
+    SoundsManager::GetInstance()->ParseSounds("../Assets/Parse/sounds.sml");
 
     CreateCursor("cursor");
     
-    _objects.push_back(new Background("background", 480, 1000,480, 1000));
-    _objects.push_back(new Background("frame", 1000, 678,200, 200, 0, 0, 100, 100));
+    _objects.push_back(new Background("background", 480, 853,480, 853));
 
-
-
+    StartMusic("MainTheme");
 }
 
+void GameManager::StartSound(std::string soundID) {
+    SoundsManager::GetInstance()->PlayEffect(std::move(soundID));
+}
+
+void GameManager::StartMusic(std::string musicID) {
+    SoundsManager::GetInstance()->PlayMusic(musicID);
+}
 void GameManager::Update() {
     float dt = Timer::GetInstance()->GetDeltaTime();
     _cursor->Update();

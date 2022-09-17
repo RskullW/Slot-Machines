@@ -33,7 +33,7 @@ file(GLOB cpphfiles
         "src/*.cpp"
         )
 
-add_executable(Slot_Machines ${cpphfiles})
+add_executable(Slot_Machines ${cpphfiles} src/SoundsManager.cpp src/SoundsManager.h)
 target_link_libraries(${PROJECT_NAME} SDL2main SDL2 SDL2_image SDL2_ttf SDL2_mixer )
 
 

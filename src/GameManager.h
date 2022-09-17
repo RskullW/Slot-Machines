@@ -25,6 +25,8 @@ public:
 private:
     void CreateCursor(std::string textureID);
     void Draw();
+    static void StartSound(std::string soundID);
+    static void StartMusic(std::string musicID);
 
 private:
     GameManager() {}

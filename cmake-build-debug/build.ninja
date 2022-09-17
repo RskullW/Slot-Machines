@@ -105,6 +105,13 @@ build CMakeFiles/Slot_Machines.dir/src/Object.cpp.obj: CXX_COMPILER__Slot_Machin
   OBJECT_DIR = CMakeFiles\Slot_Machines.dir
   OBJECT_FILE_DIR = CMakeFiles\Slot_Machines.dir\src
 
+build CMakeFiles/Slot_Machines.dir/src/SoundsManager.cpp.obj: CXX_COMPILER__Slot_Machines_Debug C$:/Users/mailc/Documents/ProjectsC++/Slot-Machines/src/SoundsManager.cpp || cmake_object_order_depends_target_Slot_Machines
+  DEP_FILE = CMakeFiles\Slot_Machines.dir\src\SoundsManager.cpp.obj.d
+  FLAGS = -static-libstdc++ -static-libgcc -g
+  INCLUDES = -IC:/Library/CLionSDL/SDL2_mixer-2.0.4/x86_64-w64-mingw32/include -IC:/Library/CLionSDL/SDL2_ttf-2.0.18/x86_64-w64-mingw32/include -IC:/Library/CLionSDL/SDL2-2.0.20/x86_64-w64-mingw32/include -IC:/Library/CLionSDL/SDL2_image-2.0.5/x86_64-w64-mingw32/include
+  OBJECT_DIR = CMakeFiles\Slot_Machines.dir
+  OBJECT_FILE_DIR = CMakeFiles\Slot_Machines.dir\src
+
 build CMakeFiles/Slot_Machines.dir/src/TextureManager.cpp.obj: CXX_COMPILER__Slot_Machines_Debug C$:/Users/mailc/Documents/ProjectsC++/Slot-Machines/src/TextureManager.cpp || cmake_object_order_depends_target_Slot_Machines
   DEP_FILE = CMakeFiles\Slot_Machines.dir\src\TextureManager.cpp.obj.d
   FLAGS = -static-libstdc++ -static-libgcc -g
@@ -162,7 +169,7 @@ build CMakeFiles/Slot_Machines.dir/src/xmltest.cpp.obj: CXX_COMPILER__Slot_Machi
 #############################################
 # Link the executable Slot_Machines.exe
 
-build Slot_Machines.exe: CXX_EXECUTABLE_LINKER__Slot_Machines_Debug CMakeFiles/Slot_Machines.dir/main.cpp.obj CMakeFiles/Slot_Machines.dir/src/AnimationSprite.cpp.obj CMakeFiles/Slot_Machines.dir/src/Background.cpp.obj CMakeFiles/Slot_Machines.dir/src/Button.cpp.obj CMakeFiles/Slot_Machines.dir/src/FontManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/GameManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Input.cpp.obj CMakeFiles/Slot_Machines.dir/src/Object.cpp.obj CMakeFiles/Slot_Machines.dir/src/TextureManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Timer.cpp.obj CMakeFiles/Slot_Machines.dir/src/tinystr.cpp.obj CMakeFiles/Slot_Machines.dir/src/tinyxml.cpp.obj CMakeFiles/Slot_Machines.dir/src/tinyxmlerror.cpp.obj CMakeFiles/Slot_Machines.dir/src/tinyxmlparser.cpp.obj CMakeFiles/Slot_Machines.dir/src/xmltest.cpp.obj
+build Slot_Machines.exe: CXX_EXECUTABLE_LINKER__Slot_Machines_Debug CMakeFiles/Slot_Machines.dir/main.cpp.obj CMakeFiles/Slot_Machines.dir/src/AnimationSprite.cpp.obj CMakeFiles/Slot_Machines.dir/src/Background.cpp.obj CMakeFiles/Slot_Machines.dir/src/Button.cpp.obj CMakeFiles/Slot_Machines.dir/src/FontManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/GameManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Input.cpp.obj CMakeFiles/Slot_Machines.dir/src/Object.cpp.obj CMakeFiles/Slot_Machines.dir/src/SoundsManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/TextureManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Timer.cpp.obj CMakeFiles/Slot_Machines.dir/src/tinystr.cpp.obj CMakeFiles/Slot_Machines.dir/src/tinyxml.cpp.obj CMakeFiles/Slot_Machines.dir/src/tinyxmlerror.cpp.obj CMakeFiles/Slot_Machines.dir/src/tinyxmlparser.cpp.obj CMakeFiles/Slot_Machines.dir/src/xmltest.cpp.obj
   FLAGS = -static-libstdc++ -static-libgcc -g
   LINK_LIBRARIES = -lSDL2main  -lSDL2  -lSDL2_image  -lSDL2_ttf  -lSDL2_mixer  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Library/CLionSDL/SDL2_image-2.0.5/x86_64-w64-mingw32/lib   -LC:/Library/CLionSDL/SDL2_ttf-2.0.18/x86_64-w64-mingw32/lib   -LC:/Library/CLionSDL/SDL2-2.0.20/x86_64-w64-mingw32/lib   -LC:/Library/CLionSDL/SDL2_mixer-2.0.4/x86_64-w64-mingw32/lib

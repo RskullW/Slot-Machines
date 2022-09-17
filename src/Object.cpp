@@ -12,8 +12,6 @@ Object::Object(std::string textureID, int sourceH, int sourceW, int destH, int d
     _dest.w = destW;
     
     _source.x = _source.y = _dest.x = _dest.y = 0;
-    
-    std::cout << textureID;
 }
 
 void Object::Draw(SDL_Renderer* renderer) {
