@@ -1,4 +1,4 @@
-﻿#include "src/GameManager.h"
+﻿#include "src/Managers/GameManager.h"
 
 const unsigned int SCREEN_WIDTH = 853;
 const unsigned int SCREEN_HEIGHT = 480;

@@ -29,11 +29,25 @@ link_directories(${SDL2_MIXER_LIB_DIR})
 file(GLOB cpphfiles
         "*.h"
         "src/*.h"
+        "src/Animations/*.h"
+        "src/Controls/*.h"
+        "src/Managers/*.h"
+        "src/XmlParser/*.h"
+        "src/Objects/*.h"
+        "src/Interfaces/*.h"
+        "src/Abstract classes/*.h"
         "*.cpp"
         "src/*.cpp"
+        "src/Animations/*.cpp"
+        "src/Controls/*.cpp"
+        "src/Managers/*.cpp"
+        "src/XmlParser/*.cpp"
+        "src/Objects/*.cpp"
+        "src/Interfaces/*.cpp"
+        "src/Abstract classes/*.cpp"
         )
 
-add_executable(Slot_Machines ${cpphfiles} src/SoundsManager.cpp src/SoundsManager.h)
+add_executable(Slot_Machines ${cpphfiles} src/Controls/RigidBody.h)
 target_link_libraries(${PROJECT_NAME} SDL2main SDL2 SDL2_image SDL2_ttf SDL2_mixer )
 
 
