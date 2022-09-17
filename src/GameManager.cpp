@@ -4,6 +4,8 @@
 #include "SDL2/SDL_ttf.h"
 #include "Timer.h"
 #include "Input.h"
+#include "TextureManager.h"
+#include "Background.h"
 
 GameManager* GameManager::_instance = nullptr; 
 
@@ -39,16 +41,31 @@ void GameManager::Initialize(const char* title, int xpos, int ypos, int w, int h
         _isRunning = false;
         return;
     }
+    
+    TextureManager::GetInstance()->ParseTextures("../Assets/Parse/texture.tml");
+
+    CreateCursor("cursor");
+    
+    _objects.push_back(new Background("background", 480, 1000,480, 1000));
+    _objects.push_back(new Background("frame", 1000, 678,200, 200, 0, 0, 100, 100));
+
+
+
 }
 
 void GameManager::Update() {
     float dt = Timer::GetInstance()->GetDeltaTime();
+    _cursor->Update();
 }
 
 void GameManager::Renderer() {
     SDL_RenderClear(_renderer);
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 0);
+    
+    Draw();
+    
     SDL_RenderPresent(_renderer);
+    
 }
 
 void GameManager::HandleEvents() {
@@ -72,4 +89,21 @@ bool GameManager::GetRunning() const {
 }
 SDL_Renderer* GameManager::GetRenderer() {
     return _renderer;
+}
+
+void GameManager::CreateCursor(std::string textureID) {
+    _cursor = new Mouse(textureID);
+}
+
+void GameManager::Draw() {
+
+    for (auto *object : _objects) {
+        object->Draw(_renderer);
+    }
+
+    _cursor->Draw(_renderer);
+}
+
+void GameManager::Tick() {
+    Timer::GetInstance()->Tick();
 }

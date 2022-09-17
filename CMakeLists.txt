@@ -33,7 +33,7 @@ file(GLOB cpphfiles
         "src/*.cpp"
         )
 
-add_executable(Slot_Machines ${cpphfiles} src/TextureManager.cpp src/TextureManager.h src/Vector2D.h src/Transform.h)
+add_executable(Slot_Machines ${cpphfiles})
 target_link_libraries(${PROJECT_NAME} SDL2main SDL2 SDL2_image SDL2_ttf SDL2_mixer )
 
 

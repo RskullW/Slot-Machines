@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<textures> 
+    <texture id ="items" source="C:\Users\mailc\Documents\ProjectsC++\Slot-Machines\Assets\Sprites\slotsItems.png"/>
+    <texture id ="background" source="C:\Users\mailc\Documents\ProjectsC++\Slot-Machines\Assets\Sprites\background.png"/>
+    <texture id ="buttons" source="C:\Users\mailc\Documents\ProjectsC++\Slot-Machines\Assets\Sprites\buttons.png"/>
+    <texture id ="frame" source="C:\Users\mailc\Documents\ProjectsC++\Slot-Machines\Assets\Sprites\frame.png"/>
+    <texture id ="cursor" source="C:\Users\mailc\Documents\ProjectsC++\Slot-Machines\Assets\Sprites\cursor.png"/>
+</textures>

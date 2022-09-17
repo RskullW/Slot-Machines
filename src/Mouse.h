@@ -11,14 +11,14 @@ public:
     Mouse() {}
 
     Mouse(std::string textureId) {
-        _texture = TextureManager::GetInstance()->getTexture(textureId);
-        _rect.w = _rect.h = 15;
-        _point.w = _point.h = 1;
+        _texture = TextureManager::GetInstance()->GetTexture(textureId);
+        _rect.w = _rect.h = 30;
+        _point.w = _point.h = 30;
 
         SDL_ShowCursor(false);
     }
 
-    SDL_Rect GetPoint() { return _point; }
+    SDL_Rect &GetPoint() { return _point; }
 
     void Update() {
         SDL_GetMouseState(&_rect.x, &_rect.y);
@@ -35,4 +35,4 @@ public:
 public:
     SDL_Texture *_texture;
     SDL_Rect _rect, _point;
-}
+};

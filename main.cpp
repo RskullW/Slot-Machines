@@ -1,6 +1,6 @@
 ﻿#include "src/GameManager.h"
 
-const unsigned int SCREEN_WIDTH = 1000;
+const unsigned int SCREEN_WIDTH = 853;
 const unsigned int SCREEN_HEIGHT = 480;
 
 int WinMain (int argc, char * args []) {

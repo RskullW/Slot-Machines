@@ -6,7 +6,7 @@
 
 TextureManager* TextureManager::_instance = nullptr;
 
-void TextureManager::clean()
+void TextureManager::Clean()
 {
     std::map<std::string, SDL_Texture*>::iterator it;
 
@@ -38,13 +38,13 @@ bool TextureManager::ParseTextures(std::string source)
         {
             std::string id = e->Attribute("id");
             std::string src = e->Attribute("source");
-            load(id, src);
+            Load(id, src);
         }
     }
 
     return 1;
 }
-bool TextureManager::load(std::string id, std::string filename)
+bool TextureManager::Load(std::string id, std::string filename)
 {
     SDL_Surface* surface = IMG_Load(filename.c_str());
 
