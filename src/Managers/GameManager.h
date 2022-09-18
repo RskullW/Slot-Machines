@@ -6,6 +6,7 @@
 #include "../Objects/Object.h"
 #include "../Objects/Slot.h"
 #include "../Controls/Button.h"
+#include "../Structures/PlayerStatics.h"
 
 #define ushort unsigned short
 
@@ -27,9 +28,10 @@ public:
     void SetRunning(bool running);
     
     void SetConditionButtons(); 
-    void SetActiveButtonPlay(bool isActive = false);
+    void ProccessGame(bool isActive = false);
     
 private:
+    void LoadData();
     void CreateCursor(std::string textureID);
     void CreateSlot();
     void CreateButtons();
@@ -43,6 +45,9 @@ private:
     void PlayRound();
     void StopRound();
     void ExitGame();
+    
+    void ReduceMoney(int money = 10);
+    void IncreaseMoney(int money = 10);
     
     int GenerateFigures(ushort minValue = 0, ushort maxValue = 1);
     bool ProcessFigures();
@@ -59,4 +64,5 @@ private:
     std::map<std::string, Object*> _objects;
     std::vector<Slot*> _slots;
     std::map<std::string, Button*> _buttons;
+    PlayerStatics _playerStatics;
 };

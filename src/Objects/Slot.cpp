@@ -104,7 +104,7 @@ void Slot::CorrectPositionSlots() {
     _speed = SPEED;
     _isRunning = false;
 
-    GameManager::GetInstance()->SetActiveButtonPlay(false);
+    GameManager::GetInstance()->ProccessGame(false);
 }
 
 int Slot::GetIndexFigure() {

@@ -98,6 +98,13 @@ build CMakeFiles/Slot_Machines.dir/src/Managers/GameManager.cpp.obj: CXX_COMPILE
   OBJECT_DIR = CMakeFiles\Slot_Machines.dir
   OBJECT_FILE_DIR = CMakeFiles\Slot_Machines.dir\src\Managers
 
+build CMakeFiles/Slot_Machines.dir/src/Managers/SaveManagers.cpp.obj: CXX_COMPILER__Slot_Machines_Debug C$:/Users/mailc/Documents/ProjectsC++/Slot-Machines/src/Managers/SaveManagers.cpp || cmake_object_order_depends_target_Slot_Machines
+  DEP_FILE = CMakeFiles\Slot_Machines.dir\src\Managers\SaveManagers.cpp.obj.d
+  FLAGS = -static-libstdc++ -static-libgcc -g
+  INCLUDES = -IC:/Library/CLionSDL/SDL2_mixer-2.0.4/x86_64-w64-mingw32/include -IC:/Library/CLionSDL/SDL2_ttf-2.0.18/x86_64-w64-mingw32/include -IC:/Library/CLionSDL/SDL2-2.0.20/x86_64-w64-mingw32/include -IC:/Library/CLionSDL/SDL2_image-2.0.5/x86_64-w64-mingw32/include
+  OBJECT_DIR = CMakeFiles\Slot_Machines.dir
+  OBJECT_FILE_DIR = CMakeFiles\Slot_Machines.dir\src\Managers
+
 build CMakeFiles/Slot_Machines.dir/src/Managers/SoundsManager.cpp.obj: CXX_COMPILER__Slot_Machines_Debug C$:/Users/mailc/Documents/ProjectsC++/Slot-Machines/src/Managers/SoundsManager.cpp || cmake_object_order_depends_target_Slot_Machines
   DEP_FILE = CMakeFiles\Slot_Machines.dir\src\Managers\SoundsManager.cpp.obj.d
   FLAGS = -static-libstdc++ -static-libgcc -g
@@ -176,7 +183,7 @@ build CMakeFiles/Slot_Machines.dir/src/XmlParser/xmltest.cpp.obj: CXX_COMPILER__
 #############################################
 # Link the executable Slot_Machines.exe
 
-build Slot_Machines.exe: CXX_EXECUTABLE_LINKER__Slot_Machines_Debug CMakeFiles/Slot_Machines.dir/main.cpp.obj CMakeFiles/Slot_Machines.dir/src/Animations/AnimationSprite.cpp.obj CMakeFiles/Slot_Machines.dir/src/Controls/Button.cpp.obj CMakeFiles/Slot_Machines.dir/src/Controls/Input.cpp.obj CMakeFiles/Slot_Machines.dir/src/Controls/Timer.cpp.obj CMakeFiles/Slot_Machines.dir/src/Managers/FontManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Managers/GameManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Managers/SoundsManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Managers/TextureManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Objects/Background.cpp.obj CMakeFiles/Slot_Machines.dir/src/Objects/Object.cpp.obj CMakeFiles/Slot_Machines.dir/src/Objects/Slot.cpp.obj CMakeFiles/Slot_Machines.dir/src/XmlParser/tinystr.cpp.obj CMakeFiles/Slot_Machines.dir/src/XmlParser/tinyxml.cpp.obj CMakeFiles/Slot_Machines.dir/src/XmlParser/tinyxmlerror.cpp.obj CMakeFiles/Slot_Machines.dir/src/XmlParser/tinyxmlparser.cpp.obj CMakeFiles/Slot_Machines.dir/src/XmlParser/xmltest.cpp.obj
+build Slot_Machines.exe: CXX_EXECUTABLE_LINKER__Slot_Machines_Debug CMakeFiles/Slot_Machines.dir/main.cpp.obj CMakeFiles/Slot_Machines.dir/src/Animations/AnimationSprite.cpp.obj CMakeFiles/Slot_Machines.dir/src/Controls/Button.cpp.obj CMakeFiles/Slot_Machines.dir/src/Controls/Input.cpp.obj CMakeFiles/Slot_Machines.dir/src/Controls/Timer.cpp.obj CMakeFiles/Slot_Machines.dir/src/Managers/FontManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Managers/GameManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Managers/SaveManagers.cpp.obj CMakeFiles/Slot_Machines.dir/src/Managers/SoundsManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Managers/TextureManager.cpp.obj CMakeFiles/Slot_Machines.dir/src/Objects/Background.cpp.obj CMakeFiles/Slot_Machines.dir/src/Objects/Object.cpp.obj CMakeFiles/Slot_Machines.dir/src/Objects/Slot.cpp.obj CMakeFiles/Slot_Machines.dir/src/XmlParser/tinystr.cpp.obj CMakeFiles/Slot_Machines.dir/src/XmlParser/tinyxml.cpp.obj CMakeFiles/Slot_Machines.dir/src/XmlParser/tinyxmlerror.cpp.obj CMakeFiles/Slot_Machines.dir/src/XmlParser/tinyxmlparser.cpp.obj CMakeFiles/Slot_Machines.dir/src/XmlParser/xmltest.cpp.obj
   FLAGS = -static-libstdc++ -static-libgcc -g
   LINK_LIBRARIES = -lSDL2main  -lSDL2  -lSDL2_image  -lSDL2_ttf  -lSDL2_mixer  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Library/CLionSDL/SDL2_image-2.0.5/x86_64-w64-mingw32/lib   -LC:/Library/CLionSDL/SDL2_ttf-2.0.18/x86_64-w64-mingw32/lib   -LC:/Library/CLionSDL/SDL2-2.0.20/x86_64-w64-mingw32/lib   -LC:/Library/CLionSDL/SDL2_mixer-2.0.4/x86_64-w64-mingw32/lib

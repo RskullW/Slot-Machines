@@ -2,16 +2,19 @@
 #include <utility>
 #include <algorithm>
 #include "GameManager.h"
+#include "TextureManager.h"
+#include "SoundsManager.h"
+#include "SaveManagers.h"
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_ttf.h"
 #include "../Controls/Timer.h"
 #include "../Controls/Input.h"
-#include "TextureManager.h"
 #include "../Objects/Background.h"
-#include "SoundsManager.h"
 
 #define SIZE_WIDGHT_BUTTON 137
 #define SIZE_HEIGHT_BUTTON 76
+#define MONEY_WHEN_WINNING 50
+#define MONEY_WHEN_DEFEAT 10
 
 GameManager* GameManager::_instance = nullptr; 
 
@@ -56,6 +59,7 @@ void GameManager::Initialize(const char* title, int xpos, int ypos, int w, int h
     CreateObjects();
     CreateButtons();
     StartMusic("MainTheme");
+    LoadData();
     
     _runningSlots = 0;
 }
@@ -174,6 +178,8 @@ void GameManager::DestroyObjects() {
     
     _buttons["start"]->Clean();
     _buttons["stop"]->Clean();
+
+    SaveManagers::GetInstance()->SaveFile(_playerStatics);
 }
 
 void GameManager::SetConditionButtons() {
@@ -200,6 +206,7 @@ void GameManager::SetConditionButtons() {
 }
 
 void GameManager::PlayRound() {
+    std::cout << "\n" << _playerStatics.Money;
     if (!_buttons["start"]->GetActive()) {
         StartSound("RotationSlots");
         SoundsManager::GetInstance()->StopMusic();
@@ -212,6 +219,8 @@ void GameManager::PlayRound() {
 
         _buttons["stop"]->SetActive(false);
         _buttons["stop"]->SetSourceX(0);
+
+        ReduceMoney(MONEY_WHEN_DEFEAT);
     }
 }
 
@@ -221,7 +230,7 @@ void GameManager::StopRound() {
     }
 }
 
-void GameManager::SetActiveButtonPlay(bool isActive) {
+void GameManager::ProccessGame(bool isActive) {
     auto *buttonStart = _buttons["start"];
     auto *buttonStop = _buttons["stop"];
 
@@ -234,6 +243,7 @@ void GameManager::SetActiveButtonPlay(bool isActive) {
 
             if (ProcessFigures()) {
                 StartSound("WinningSound");
+                IncreaseMoney(MONEY_WHEN_WINNING);
             } else {
                 StartSound("FailedSound");
             }
@@ -241,7 +251,7 @@ void GameManager::SetActiveButtonPlay(bool isActive) {
             buttonStart->SetActive(isActive);
             buttonStop->SetActive(true);
             buttonStop->SetSourceX(SIZE_WIDGHT_BUTTON*2);
-
+            
             SoundsManager::GetInstance()->PlayMusic("MainTheme");
 
         }
@@ -278,4 +288,30 @@ void GameManager::UpdateButtons() {
 
 void GameManager::ExitGame() {
     _isRunning = false;
+    SaveManagers::GetInstance()->SaveFile(_playerStatics);
+}
+
+void GameManager::LoadData() {
+    SaveManagers::GetInstance()->Initialize("../PlayerStats.txt");
+    SaveManagers::GetInstance()->LoadFile();
+
+    _playerStatics = SaveManagers::GetInstance()->GetStats();
+    
+    if (_playerStatics.Money < 10) {
+        _playerStatics.Money = 100;
+    }
+    
+    std::cout << _playerStatics.Money;
+}
+
+void GameManager::IncreaseMoney(int money) {
+    _playerStatics.Money+=money;
+    SaveManagers::GetInstance()->SaveFile(_playerStatics);
+
+}
+
+void GameManager::ReduceMoney(int money) {
+    _playerStatics.Money-=money;
+    SaveManagers::GetInstance()->SaveFile(_playerStatics);
+
 }
