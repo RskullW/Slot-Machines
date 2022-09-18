@@ -35,7 +35,10 @@ private:
     void CreateCursor(std::string textureID);
     void CreateSlot();
     void CreateButtons();
+    
     void Draw();
+    void DrawCashText();
+    
     void UpdateButtons();
     void CreateObjects();
     void DestroyObjects();

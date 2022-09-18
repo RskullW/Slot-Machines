@@ -10,6 +10,7 @@
 #include "../Controls/Timer.h"
 #include "../Controls/Input.h"
 #include "../Objects/Background.h"
+#include "FontManager.h"
 
 #define SIZE_WIDGHT_BUTTON 137
 #define SIZE_HEIGHT_BUTTON 76
@@ -53,6 +54,7 @@ void GameManager::Initialize(const char* title, int xpos, int ypos, int w, int h
     
     TextureManager::GetInstance()->ParseTextures("../Assets/Parse/texture.tml");
     SoundsManager::GetInstance()->ParseSounds("../Assets/Parse/sounds.sml");
+    FontManager::GetInstance()->Add("../Assets/Fonts/Kosugi-Regular.ttf", "Cash", 23);
 
     CreateCursor("cursor");
     
@@ -129,6 +131,7 @@ void GameManager::Draw() {
     _objects["background"]->Draw(_renderer);
 
     UpdateButtons();
+    DrawCashText();
     
     _cursor->Draw(_renderer);
 }
@@ -197,19 +200,19 @@ void GameManager::SetConditionButtons() {
         auto sourceX = _buttons["start"]->GetSource().x;
         PlayRound();
         _buttons["start"]->SetActive(true);
-        _buttons["start"]->SetSourceX(sourceX * 2);
+        _buttons["start"]->SetSourceX(SIZE_WIDGHT_BUTTON * 2);
     }
 
     if (_buttons["exit"]->GetSelected() && !_buttons["exit"]->GetActive()) {
         auto sourceX = _buttons["exit"]->GetSource().x;
         ExitGame();
         _buttons["exit"]->SetActive(true);
-        _buttons["exit"]->SetSourceX(sourceX * 2);
+        _buttons["exit"]->SetSourceX(SIZE_WIDGHT_BUTTON * 2);
     }
 }
 
 void GameManager::PlayRound() {
-    std::cout << "\n" << _playerStatics.Money;
+
     if (!_buttons["start"]->GetActive()) {
         StartSound("RotationSlots");
         SoundsManager::GetInstance()->StopMusic();
@@ -264,7 +267,6 @@ void GameManager::ProccessGame(bool isActive) {
 int GameManager::GenerateFigures(ushort minValue, ushort maxValue) {
     
     int randomIndexFigure = (int)(minValue + rand() % (maxValue - minValue));
-    std::cout << "Index figure: " << randomIndexFigure << "\n";
     return randomIndexFigure*337;
 }
 
@@ -272,8 +274,7 @@ bool GameManager::ProcessFigures() {
     
     
     for (ushort i = 0; i < (ushort)_slots.size()-1; ++i) {
-        std::cout << "\nindex " << i << " = " << _slots[i]->GetIndexFigure();
-        std::cout << "\nindex " << i+1 << " = " << _slots[i+1]->GetIndexFigure();
+
         if (_slots[i]->GetIndexFigure()!=_slots[i+1]->GetIndexFigure()) {
             return false;
         }
@@ -304,8 +305,6 @@ void GameManager::LoadData() {
     if (_playerStatics.Money < 10) {
         _playerStatics.Money = 100;
     }
-    
-    std::cout << _playerStatics.Money;
 }
 
 void GameManager::IncreaseMoney(int money) {
@@ -319,3 +318,30 @@ void GameManager::ReduceMoney(int money) {
     SaveManagers::GetInstance()->SaveFile(_playerStatics);
 
 }
+
+void GameManager::DrawCashText() {
+    SDL_Color colorText = {41, 255, 6, 255};
+    SDL_Color colorBackground = {0,0,0,5};
+    
+    SDL_Rect source = {735, 80, 0, 0};
+    std::string cash = std::to_string(_playerStatics.Money) + "$";
+
+    TTF_SetFontStyle(FontManager::GetInstance()->GetFont("Cash"), TTF_STYLE_NORMAL);
+
+    SDL_Surface *surface = TTF_RenderText_Shaded(FontManager::GetInstance()->GetFont("Cash"), cash.c_str(), colorText, colorBackground);
+
+    if (surface == nullptr) {
+        SDL_Log("Error! Font do not exist, surface not loaded...");
+    }
+
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(_renderer, surface);
+
+    if (texture == nullptr) {
+        SDL_Log("Error! Font do not exist, texture not loaded...");
+    }
+
+    SDL_FreeSurface(surface);
+
+    SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
+    SDL_RenderCopy(_renderer, texture, NULL, &source);
+}   
