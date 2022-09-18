@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <utility>
+#include <algorithm>
 #include "GameManager.h"
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_ttf.h"
@@ -8,6 +9,7 @@
 #include "TextureManager.h"
 #include "../Objects/Background.h"
 #include "SoundsManager.h"
+
 
 GameManager* GameManager::_instance = nullptr; 
 
@@ -52,6 +54,8 @@ void GameManager::Initialize(const char* title, int xpos, int ypos, int w, int h
     CreateObjects();
     CreateButtons();
     StartMusic("MainTheme");
+    
+    _runningSlots = 0;
 }
 
 void GameManager::StartSound(std::string soundID) {
@@ -107,15 +111,17 @@ void GameManager::CreateCursor(std::string textureID) {
 }
 
 void GameManager::Draw() {
+    float dt = Timer::GetInstance()->GetDeltaTime();
 
-    for (auto *object : _objects) {
-        object->Draw(_renderer);
-    }
-
+    _objects["frames"]->Draw(_renderer);
+    
     for (auto* slot: _slots) {
+        slot->Update(dt);
         slot->Draw(_renderer);
     }
-    
+
+    _objects["background"]->Draw(_renderer);
+
     _buttons["start"]->Draw(_renderer);
     _buttons["start"]->Update(*_cursor);
     
@@ -135,21 +141,23 @@ void GameManager::CreateSlot() {
     // destW - увеличение спрайта от 0 до destW в ширину, sourceY - смещение картинки в листе спрайтов на Y,
     // sourceX - смещение картинки в листе спрайтов на X, destX - смещение спрайта по оси X на экране, 
     // destY - смещение спрайта по оси Y на экране
-    _slots.push_back(new Slot("items", 191, 186, 191, 186, 0, 0, 30, 150));
-    _slots.push_back(new Slot("items", 191, 186, 191, 186, 0, 191, 256, 150));
-    _slots.push_back(new Slot("items", 191, 186, 191, 160, 0, 382, 475, 150));
+    _slots.push_back(new Slot("items", 337, 190, 337, 190, 0, GenerateFigures(), 40, 70));
+    _slots.push_back(new Slot("items", 337, 190, 337, 190, 0, GenerateFigures(), 260, 70));
+    _slots.push_back(new Slot("items", 337, 190, 337, 150, 0, GenerateFigures(), 480, 70));
 
 }
 
 void GameManager::CreateObjects() {
-    
-    _objects.push_back(new Background("background", 480, 853,480, 853));
+    _objects["frames"] = new Background("frame", 349, 631,349, 631, 0, 0, 19, 65);
+    _objects["background"] = new Background("background", 480, 853,480, 853);
     CreateSlot();
+
 }
 
 void GameManager::DestroyObjects() {
-    for (auto* object: _objects) {
-        object->Clean();
+
+    for (auto & _object : _objects) {
+        _object.second->Draw(_renderer);
     }
     
     for (auto* slot: _slots) {
@@ -162,7 +170,57 @@ void GameManager::DestroyObjects() {
 void GameManager::SetConditionButtons() {
     if (_buttons["start"]->GetSelected() && !_buttons["start"]->GetActive()) {
         auto sourceX = _buttons["start"]->GetSource().x;
+        PlayRound();
         _buttons["start"]->SetActive(true);
         _buttons["start"]->SetSourceX(sourceX*2);
     }
+}
+
+void GameManager::PlayRound() {
+    if (!_buttons["start"]->GetActive()) {
+        StartSound("RotationSlots");
+        SoundsManager::GetInstance()->StopMusic();
+        
+        for (auto* slot: _slots) {
+            slot->StartRotate();
+        }
+        
+        _runningSlots = 3;
+    }
+}
+
+void GameManager::SetActiveButtonPlay(bool isActive) {
+    auto *button = _buttons["start"];
+
+    _runningSlots-=1;
+    
+    if (_runningSlots == 0) {
+        if (ProcessFigures()) {
+            StartSound("WinningSound");
+        } else {
+            StartSound("FailedSound");
+        }
+
+        button->SetActive(isActive);
+    }
+}
+
+int GameManager::GenerateFigures(ushort minValue, ushort maxValue) {
+    int randomIndexFigure = (int)rand() * (maxValue-minValue) / RAND_MAX + maxValue;
+    
+    return randomIndexFigure*337;
+}
+
+bool GameManager::ProcessFigures() {
+    
+    
+    for (ushort i = 0; i < (ushort)_slots.size()-1; ++i) {
+        std::cout << "\nindex " << i << " = " << _slots[i]->GetIndexFigure();
+        std::cout << "\nindex " << i+1 << " = " << _slots[i+1]->GetIndexFigure();
+        if (_slots[i]->GetIndexFigure()!=_slots[i+1]->GetIndexFigure()) {
+            return false;
+        }
+    }
+    
+    return true;
 }

@@ -89,7 +89,7 @@ bool SoundsManager::ParseSounds(std::string source) {
     TiXmlElement *root = xml.RootElement();
 
     for (TiXmlElement *e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement()) {
-        if (e->Value() == std::string("effect")) {
+        if (e->Value() == std::string("sound")) {
             LoadEffect(e->Attribute("id"), e->Attribute("source"));
             continue;
         }

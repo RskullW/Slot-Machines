@@ -1,14 +1,14 @@
 ﻿#include "Slot.h"
 #include "../Managers/TextureManager.h"
+#include "../Managers/SoundsManager.h"
+#include "../Managers/GameManager.h"
 #include "../Controls/Input.h"
+#include "thread"
 
+#define ROTATE_SPEED_IN_FRAME 2000
+#define SPEED 10.0f
 
-static int tempTime = 0;
-
-static float RUN_FORCE = 0.25f;
-static float JUMP_TIME = 8.0f;
-static float JUMP_FORCE = 6.0f;
-
+void Rotate(SDL_Rect *source, SDL_Rect *dest);
 
 Slot::Slot(std::string textureID, int sourceH, int sourceW,
            int destH, int destW, int sourceX, int sourceY,
@@ -27,7 +27,10 @@ Slot::Slot(std::string textureID, int sourceH, int sourceW,
     _collider2D->SetBuff(191, 186, 191, 186);
 
     _animation = new AnimationSprite();
-    _animation->SetProps(textureID, 0, 0, 0);
+    _animation->SetProps(textureID, 1, 1, 1);
+    
+    _isRunning = false;
+    _speed = SPEED;
 }
 
 void Slot::Draw(SDL_Renderer* renderer)
@@ -43,33 +46,80 @@ void Slot::Clean()
 
 void Slot::Update(float dt)
 {
+    _animation->Update(dt);
+    
+    if (_isRunning) {
+        
+        if (_timeRunning > 0 && _speed > 0) {
+            _timeRunning-=1;
 
-    // Clicked
-    if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_LCTRL) && !isPlay)
-    {
-        if (_isRunning == 0)
-        {
-            //TODO: Добавить звук при вращении барабана тут или добавить в общий менеджер
-            //SoundGame::GetInstance()->playEffect("attack", 2);
+            if (_timeRunning > ROTATE_SPEED_IN_FRAME-40) {
+                _source.y -= (int)_speed;
+            }
+            
+            else {
+                _source.y += (int) _speed;
+            }
+            
+            if (((int)_timeRunning%100) == 0) {
+                _speed-=0.5f;
+            } 
+            
+            if (_source.y > 2900 || _source.y < 0) {
+                _source.y = 0;
+            }
+        }
+        
+        else {
+            CorrectPositionSlots();
         }
     }
     
-
-    // axis X
-    _collider2D->Set(191, 186, 191, 186);
-    
-    AnimationState();
-    _animation->Update(dt);
 }
 
-void Slot::AnimationState()
-{
+void Slot::StartRotate() {
+    _isRunning = true;
+    _timeRunning = rand()%ROTATE_SPEED_IN_FRAME;
 
-    _animation->SetProps("items", 1, 0, 0);
-//  TODO: Добавить анимацию вращения слота
-//    if (_isRunning)
-//    {
-//        _animation->SetProps("player", 5, 8, 380);
-//    }
+    if ((_timeRunning < (ROTATE_SPEED_IN_FRAME-500) )|| (_timeRunning > ROTATE_SPEED_IN_FRAME)) {
+        _timeRunning = rand()%200+1500;
+    }
 
+}
+
+void Slot::CorrectPositionSlots() {
+    if (_source.y % 337 != 0) {
+        if (_source.y%337 > 337/2) {
+            _source.y+= (337-_source.y%337);
+        }
+        //674
+        else {
+            _source.y -= _source.y %337;
+        }
+
+    }
+
+    FindIndexFigure();
+    _speed = SPEED;
+    _isRunning = false;
+    
+    SoundsManager::GetInstance()->StopEffect();
+    SoundsManager::GetInstance()->PlayMusic("MainTheme");
+
+    GameManager::GetInstance()->SetActiveButtonPlay(false);
+}
+
+int Slot::GetIndexFigure() {
+    return _indexFigure;
+}
+
+void Slot::FindIndexFigure() {
+    int maxValue = _source.y;
+    _indexFigure = 0;
+    
+    while (maxValue > 337) {
+        maxValue-=337;
+        _indexFigure++;
+        
+    }
 }
