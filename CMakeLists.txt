@@ -34,8 +34,6 @@ file(GLOB cpphfiles
         "src/Managers/*.h"
         "src/XmlParser/*.h"
         "src/Objects/*.h"
-        "src/Interfaces/*.h"
-        "src/Abstract classes/*.h"
         "*.cpp"
         "src/*.cpp"
         "src/Animations/*.cpp"
@@ -43,8 +41,6 @@ file(GLOB cpphfiles
         "src/Managers/*.cpp"
         "src/XmlParser/*.cpp"
         "src/Objects/*.cpp"
-        "src/Interfaces/*.cpp"
-        "src/Abstract classes/*.cpp"
         )
 
 add_executable(Slot_Machines ${cpphfiles})

@@ -23,9 +23,6 @@ Slot::Slot(std::string textureID, int sourceH, int sourceW,
     _dest.x = destX;
     _dest.y = destY;
     _textureID = textureID;
-    
-    _collider2D = new Collider2D();
-    _collider2D->SetBuff(191, 186, 191, 186);
 
     _animation = new AnimationSprite();
     _animation->SetProps(textureID, 1, 1, 1);
@@ -93,7 +90,7 @@ void Slot::CorrectPositionSlots() {
         if (_source.y%337 > 337/2) {
             _source.y+= (337-_source.y%337);
         }
-        //674
+
         else {
             _source.y -= _source.y %337;
         }

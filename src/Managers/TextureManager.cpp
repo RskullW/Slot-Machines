@@ -2,7 +2,6 @@
 #include "TextureManager.h"
 #include "../XmlParser/tinyxml.h"
 #include "GameManager.h"
-#include "../Controls/Vector2D.h"
 
 TextureManager* TextureManager::_instance = nullptr;
 
