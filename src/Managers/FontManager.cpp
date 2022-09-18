@@ -1,5 +1,8 @@
 ﻿#include "FontManager.h"
+#include "GameManager.h"
+#include "../Controls/Timer.h"
 #include <iostream>
+
 
 FontManager* FontManager::_instance = nullptr;
 
@@ -38,4 +41,49 @@ TTF_Font* FontManager::GetFont(std::string id)
     }
 
     return _fontMap[id];
+}
+
+void FontManager::DrawAnimation() {
+
+    if (_localTime <= 0.f) {
+        return;
+    }
+    
+    SDL_Color colorBackground = {0, 0, 0, 1};
+    
+    _localSource.y--;
+    _localSource.x--;
+
+    TTF_SetFontSize(GetFont(_localId), _localSize++);
+    TTF_SetFontStyle(GetFont(_localId), TTF_STYLE_NORMAL);
+
+    SDL_Surface *surface = TTF_RenderText_Shaded(GetFont(_localId), _text.c_str(),
+                                                 _color, colorBackground);
+
+    if (surface == nullptr) {
+        SDL_Log("Error! Font do not exist, surface not loaded...");
+    }
+
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(GameManager::GetInstance()->GetRenderer(), surface);
+
+    if (texture == nullptr) {
+        SDL_Log("Error! Font do not exist, texture not loaded...");
+    }
+
+    SDL_FreeSurface(surface);
+
+    SDL_QueryTexture(texture, NULL, NULL, &_localSource.w, &_localSource.h);
+    SDL_RenderCopy(GameManager::GetInstance()->GetRenderer(), texture, NULL, &_localSource);
+
+    _localTime-= Timer::GetInstance()->GetDeltaTime();
+    
+}
+
+void FontManager::SetLocalTime(std::string id, std::string text, SDL_Color color, float duration, int size, SDL_Rect source) {
+    _localId = id;
+    _text = text;
+    _color = color;
+    _localTime = duration;
+    _localSize = size;
+    _localSource = source;
 }

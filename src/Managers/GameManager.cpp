@@ -55,6 +55,7 @@ void GameManager::Initialize(const char* title, int xpos, int ypos, int w, int h
     TextureManager::GetInstance()->ParseTextures("../Assets/Parse/texture.tml");
     SoundsManager::GetInstance()->ParseSounds("../Assets/Parse/sounds.sml");
     FontManager::GetInstance()->Add("../Assets/Fonts/Kosugi-Regular.ttf", "Cash", 23);
+    FontManager::GetInstance()->Add("../Assets/Fonts/Kosugi-Regular.ttf", "CashBig", SIZE_TEXT_FOR_END_ROTATE);
 
     CreateCursor("cursor");
     
@@ -132,7 +133,7 @@ void GameManager::Draw() {
 
     UpdateButtons();
     DrawCashText();
-    
+    FontManager::GetInstance()->DrawAnimation();
     _cursor->Draw(_renderer);
 }
 
@@ -196,7 +197,7 @@ void GameManager::SetConditionButtons() {
         _buttons["stop"]->SetSourceX(SIZE_WIDGHT_BUTTON * 2);
     }
     
-    if (_buttons["start"]->GetSelected() && !_buttons["start"]->GetActive()) {
+    if (_buttons["start"]->GetSelected() && !_buttons["start"]->GetActive() && _playerStatics.Money >= 10) {
         auto sourceX = _buttons["start"]->GetSource().x;
         PlayRound();
         _buttons["start"]->SetActive(true);
@@ -247,10 +248,20 @@ void GameManager::ProccessGame(bool isActive) {
 
             SoundsManager::GetInstance()->StopEffect();
 
-            if (ProcessFigures()) {
-                StartSound("WinningSound");
+            if (ProcessFigures() == 2) {
+                StartSound("ThreeReels");
                 IncreaseMoney(MONEY_WHEN_WINNING);
-            } else {
+                DrawTextWin(MONEY_WHEN_WINNING);
+            } 
+            
+            else if (ProcessFigures() == 1) {
+                StartSound("TwoReels");
+                IncreaseMoney(MONEY_WHEN_WINNING/2);
+                DrawTextWin(MONEY_WHEN_WINNING/2);
+            }
+            
+            else if (ProcessFigures() == 0)  {
+                DrawTextDefeat(MONEY_WHEN_DEFEAT);
                 StartSound("FailedSound");
             }
 
@@ -270,17 +281,31 @@ int GameManager::GenerateFigures(ushort minValue, ushort maxValue) {
     return randomIndexFigure*337;
 }
 
-bool GameManager::ProcessFigures() {
+ushort GameManager::ProcessFigures() {
     
+    int numberIdenticalReels = 0;
     
-    for (ushort i = 0; i < (ushort)_slots.size()-1; ++i) {
-
-        if (_slots[i]->GetIndexFigure()!=_slots[i+1]->GetIndexFigure()) {
-            return false;
+        if (_slots[0]->GetIndexFigure()==_slots[1]->GetIndexFigure()) {
+            numberIdenticalReels++;
         }
-    }
-    
-    return true;
+        
+        if (_slots[0]->GetIndexFigure()==_slots[2]->GetIndexFigure()) {
+            numberIdenticalReels++;
+        }
+        
+        if (_slots[1]->GetIndexFigure()==_slots[2]->GetIndexFigure()) {
+            numberIdenticalReels++;
+        }
+
+        if (numberIdenticalReels>=2) {
+            return 2;
+        }
+        
+        else if (numberIdenticalReels==1) {
+            return 1;
+        }
+        
+    return 0;
 }
 
 void GameManager::UpdateButtons() {
@@ -345,3 +370,18 @@ void GameManager::DrawCashText() {
     SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
     SDL_RenderCopy(_renderer, texture, NULL, &source);
 }   
+
+void GameManager::DrawTextWin(int money) {
+    std::string cash = "+" + std::to_string(money) + "$";
+    SDL_Color color = {41, 255, 6, 255};
+    SDL_Rect source = {400, 270, 0, 0};
+    FontManager::GetInstance()->SetLocalTime("CashBig", cash, color, DURATION_ANIMATION, SIZE_TEXT_FOR_END_ROTATE, source);
+}
+
+void GameManager::DrawTextDefeat(int money) {
+    std::string cash = "-" + std::to_string(money) + "$";
+    SDL_Color color = {255, 40, 71, 255};
+    SDL_Rect source = {400, 270, 0, 0};
+    FontManager::GetInstance()->SetLocalTime("CashBig", cash, color, DURATION_ANIMATION, SIZE_TEXT_FOR_END_ROTATE, source);
+
+}

@@ -2,7 +2,8 @@
 <sounds> 
     <music id ="MainTheme" source="..\Assets\Sounds\MainTheme.ogg"/>
     <sound id ="RotationSlots" source="..\Assets\Sounds\RotationSlots.ogg"/>
-    <sound id ="WinningSound" source="..\Assets\Sounds\WinningSound.ogg"/>
+    <sound id ="ThreeReels" source="..\Assets\Sounds\ThreeReels.ogg"/>
+    <sound id ="TwoReels" source="..\Assets\Sounds\TwoReels.ogg"/>
     <sound id ="FailedSound" source="..\Assets\Sounds\FailedSound.ogg"/>
 
 </sounds>

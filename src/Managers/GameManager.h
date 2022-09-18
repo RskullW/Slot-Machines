@@ -38,6 +38,8 @@ private:
     
     void Draw();
     void DrawCashText();
+    void DrawTextWin(int money = -1);
+    void DrawTextDefeat(int money = -1);
     
     void UpdateButtons();
     void CreateObjects();
@@ -53,7 +55,7 @@ private:
     void IncreaseMoney(int money = 10);
     
     int GenerateFigures(ushort minValue = 0, ushort maxValue = 1);
-    bool ProcessFigures();
+    ushort ProcessFigures();
 
 private:
     GameManager() {}
