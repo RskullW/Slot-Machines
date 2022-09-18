@@ -8,7 +8,7 @@ void WorkThread();
 int WinMain (int argc, char * args []) {
     
     std::thread thread(WorkThread);
-    std::cout << thread.get_id();
+    std::cout << "Number thread: " << thread.get_id() << '\n';
     thread.join();
 
     return 0;

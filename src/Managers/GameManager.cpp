@@ -153,9 +153,12 @@ void GameManager::CreateSlot() {
     // destW - увеличение спрайта от 0 до destW в ширину, sourceY - смещение картинки в листе спрайтов на Y,
     // sourceX - смещение картинки в листе спрайтов на X, destX - смещение спрайта по оси X на экране, 
     // destY - смещение спрайта по оси Y на экране
-    _slots.push_back(new Slot("items", 337, 190, 337, 190, 0, GenerateFigures(), 40, 70));
-    _slots.push_back(new Slot("items", 337, 190, 337, 190, 0, GenerateFigures(), 260, 70));
-    _slots.push_back(new Slot("items", 337, 190, 337, 150, 0, GenerateFigures(), 480, 70));
+
+    srand(time(0));
+
+    _slots.push_back(new Slot("items", 337, 190, 337, 190, 0, GenerateFigures(0, 9), 40, 70));
+    _slots.push_back(new Slot("items", 337, 190, 337, 190, 0, GenerateFigures(0, 9), 260, 70));
+    _slots.push_back(new Slot("items", 337, 190, 337, 150, 0, GenerateFigures(0, 9), 480, 70));
 
 }
 
@@ -259,8 +262,9 @@ void GameManager::ProccessGame(bool isActive) {
 }
 
 int GameManager::GenerateFigures(ushort minValue, ushort maxValue) {
-    int randomIndexFigure = (int)rand() * (maxValue-minValue) / RAND_MAX + maxValue;
     
+    int randomIndexFigure = (int)(minValue + rand() % (maxValue - minValue));
+    std::cout << "Index figure: " << randomIndexFigure << "\n";
     return randomIndexFigure*337;
 }
 

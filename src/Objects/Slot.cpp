@@ -80,8 +80,8 @@ void Slot::Update(float dt)
 
 void Slot::StartRotate() {
     _isRunning = true;
-    _timeRunning = rand()%ROTATE_SPEED_IN_FRAME;
-
+    _timeRunning = (int)((ROTATE_SPEED_IN_FRAME-500) + rand() % ((ROTATE_SPEED_IN_FRAME) - (ROTATE_SPEED_IN_FRAME-500)));
+    std::cout << "Time running = " << _timeRunning << "\n";
     if ((_timeRunning < (ROTATE_SPEED_IN_FRAME-500) )|| (_timeRunning > ROTATE_SPEED_IN_FRAME)) {
         _timeRunning = rand()%200+1500;
     }
