@@ -1,0 +1,20 @@
+# ninja log v5
+4	1564	6852111348898319	CMakeFiles/Slot_Machines.dir/src/Animations/AnimationSprite.cpp.obj	bd8ebeeae14e9c07
+14	1703	6852111350474102	CMakeFiles/Slot_Machines.dir/src/Controls/Timer.cpp.obj	8296a8d8e20cd6da
+8	1721	6852111350623705	CMakeFiles/Slot_Machines.dir/src/Controls/Button.cpp.obj	735504fbd321d957
+11	1750	6852111350962796	CMakeFiles/Slot_Machines.dir/src/Controls/Input.cpp.obj	57ae8d452bec9b01
+0	1765	6852111351102422	CMakeFiles/Slot_Machines.dir/main.cpp.obj	c61da04fae144ecd
+1567	2185	6852111355331104	CMakeFiles/Slot_Machines.dir/src/Managers/SaveManagers.cpp.obj	c6693f556d9c4594
+2185	2369	6852111357166190	CMakeFiles/Slot_Machines.dir/src/XmlParser/tinystr.cpp.obj	f8f43597bef26900
+1721	2917	6852111362651524	CMakeFiles/Slot_Machines.dir/src/Managers/SoundsManager.cpp.obj	1ea85f38c41a163c
+1751	3164	6852111364945380	CMakeFiles/Slot_Machines.dir/src/Objects/Background.cpp.obj	8e28ec2a3edeaa39
+17	3505	6852111368515848	CMakeFiles/Slot_Machines.dir/src/Managers/GameManager.cpp.obj	f6b63a2a3539ccd2
+3164	3754	6852111371049051	CMakeFiles/Slot_Machines.dir/src/XmlParser/tinyxmlerror.cpp.obj	c55636b23c987d7b
+1704	3796	6852111371447977	CMakeFiles/Slot_Machines.dir/src/Managers/FontManager.cpp.obj	93f356589a413048
+1765	3888	6852111372365523	CMakeFiles/Slot_Machines.dir/src/Managers/TextureManager.cpp.obj	fb99990f6273868
+2370	4005	6852111373532396	CMakeFiles/Slot_Machines.dir/src/Objects/Object.cpp.obj	9eef0c2276300242
+2917	4582	6852111379306964	CMakeFiles/Slot_Machines.dir/src/Objects/Slot.cpp.obj	d565d145f944caff
+3506	4670	6852111380204542	CMakeFiles/Slot_Machines.dir/src/XmlParser/tinyxmlparser.cpp.obj	42233f76bffe0253
+3755	5104	6852111384553262	CMakeFiles/Slot_Machines.dir/src/XmlParser/tinyxml.cpp.obj	672e47850600f69e
+3797	5456	6852111388063502	CMakeFiles/Slot_Machines.dir/src/XmlParser/xmltest.cpp.obj	53e638f828101b8f
+5456	5979	6852111393302073	Slot_Machines.exe	dbea8a1813a9ee88

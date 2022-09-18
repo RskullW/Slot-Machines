@@ -373,7 +373,7 @@ void GameManager::DrawCashText() {
 
 void GameManager::DrawTextWin(int money) {
     std::string cash = "+" + std::to_string(money) + "$";
-    SDL_Color color = {41, 255, 6, 255};
+    SDL_Color color = {215, 33, 33, 255};
     SDL_Rect source = {400, 270, 0, 0};
     FontManager::GetInstance()->SetLocalTime("CashBig", cash, color, DURATION_ANIMATION, SIZE_TEXT_FOR_END_ROTATE, source);
 }

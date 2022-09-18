@@ -47,7 +47,7 @@ file(GLOB cpphfiles
         "src/Abstract classes/*.cpp"
         )
 
-add_executable(Slot_Machines ${cpphfiles} src/Structures/PlayerStatics.h)
+add_executable(Slot_Machines ${cpphfiles})
 target_link_libraries(${PROJECT_NAME} SDL2main SDL2 SDL2_image SDL2_ttf SDL2_mixer )
 
 

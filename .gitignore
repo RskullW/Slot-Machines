@@ -9,6 +9,9 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+/cmake-build-debug
+/cmake-build-release
+/.idea
 cmake-build-debug/.ninja_deps
 cmake-build-debug/.ninja_log
 cmake-build-debug/build.ninja
@@ -28,3 +31,14 @@ cmake-build-debug/build.ninja
 cmake-build-debug/Slot_Machines.exe
 *.json
 PlayerStats.txt
+cmake-build-release/Slot_Machines.exe
+cmake-build-release/build.ninja
+cmake-build-release/.ninja_log
+cmake-build-release/.ninja_deps
+cmake-build-release/.cmake/api/v1/query/toolchains-v1
+cmake-build-release/.cmake/api/v1/query/cmakeFiles-v1
+cmake-build-release/.cmake/api/v1/query/codemodel-v2
+cmake-build-release/.cmake/api/v1/query/cache-v2
+cmake-build-debug/Slot_Machines.exe
+cmake-build-debug/.ninja_log
+cmake-build-debug/.ninja_deps
