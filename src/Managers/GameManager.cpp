@@ -10,6 +10,8 @@
 #include "../Objects/Background.h"
 #include "SoundsManager.h"
 
+#define SIZE_WIDGHT_BUTTON 137
+#define SIZE_HEIGHT_BUTTON 76
 
 GameManager* GameManager::_instance = nullptr; 
 
@@ -122,8 +124,7 @@ void GameManager::Draw() {
 
     _objects["background"]->Draw(_renderer);
 
-    _buttons["start"]->Draw(_renderer);
-    _buttons["start"]->Update(*_cursor);
+    UpdateButtons();
     
     _cursor->Draw(_renderer);
 }
@@ -133,7 +134,14 @@ void GameManager::Tick() {
 }
 
 void GameManager::CreateButtons() {
-    _buttons["start"] = new Button("buttons", 76, 137, 76, 137, 0, 0, 687, 200);
+    _buttons["start"] = new Button("buttons", SIZE_HEIGHT_BUTTON, SIZE_WIDGHT_BUTTON, SIZE_HEIGHT_BUTTON, SIZE_WIDGHT_BUTTON, 0, 0, 687, 175);
+    _buttons["stop"] = new Button("buttons", SIZE_HEIGHT_BUTTON, SIZE_WIDGHT_BUTTON, SIZE_HEIGHT_BUTTON, SIZE_WIDGHT_BUTTON, 0, SIZE_HEIGHT_BUTTON, 687, 260);
+    _buttons["exit"] = new Button("buttons", SIZE_HEIGHT_BUTTON, SIZE_WIDGHT_BUTTON, SIZE_HEIGHT_BUTTON, SIZE_WIDGHT_BUTTON, 0, SIZE_HEIGHT_BUTTON*2, 687, 360);
+
+
+    auto sourceX = _buttons["start"]->GetSource().x;
+    _buttons["stop"]->SetActive(true);
+    _buttons["stop"]->SetSourceX(SIZE_WIDGHT_BUTTON*2);
 }
 
 void GameManager::CreateSlot() {
@@ -156,8 +164,8 @@ void GameManager::CreateObjects() {
 
 void GameManager::DestroyObjects() {
 
-    for (auto & _object : _objects) {
-        _object.second->Draw(_renderer);
+    for (auto & object : _objects) {
+        object.second->Draw(_renderer);
     }
     
     for (auto* slot: _slots) {
@@ -165,14 +173,29 @@ void GameManager::DestroyObjects() {
     }
     
     _buttons["start"]->Clean();
+    _buttons["stop"]->Clean();
 }
 
 void GameManager::SetConditionButtons() {
+
+    if (_buttons["stop"]->GetSelected() && !_buttons["stop"]->GetActive()) {
+        StopRound();
+        _buttons["stop"]->SetActive(true);
+        _buttons["stop"]->SetSourceX(SIZE_WIDGHT_BUTTON * 2);
+    }
+    
     if (_buttons["start"]->GetSelected() && !_buttons["start"]->GetActive()) {
         auto sourceX = _buttons["start"]->GetSource().x;
         PlayRound();
         _buttons["start"]->SetActive(true);
-        _buttons["start"]->SetSourceX(sourceX*2);
+        _buttons["start"]->SetSourceX(sourceX * 2);
+    }
+
+    if (_buttons["exit"]->GetSelected() && !_buttons["exit"]->GetActive()) {
+        auto sourceX = _buttons["exit"]->GetSource().x;
+        ExitGame();
+        _buttons["exit"]->SetActive(true);
+        _buttons["exit"]->SetSourceX(sourceX * 2);
     }
 }
 
@@ -186,22 +209,42 @@ void GameManager::PlayRound() {
         }
         
         _runningSlots = 3;
+
+        _buttons["stop"]->SetActive(false);
+        _buttons["stop"]->SetSourceX(0);
+    }
+}
+
+void GameManager::StopRound() {
+    for (Slot* slot: _slots) {
+        slot->StopRotate();
     }
 }
 
 void GameManager::SetActiveButtonPlay(bool isActive) {
-    auto *button = _buttons["start"];
+    auto *buttonStart = _buttons["start"];
+    auto *buttonStop = _buttons["stop"];
 
-    _runningSlots-=1;
-    
-    if (_runningSlots == 0) {
-        if (ProcessFigures()) {
-            StartSound("WinningSound");
-        } else {
-            StartSound("FailedSound");
+    if (_buttons["start"]->GetActive()) {
+        _runningSlots -= 1;
+
+        if (_runningSlots == 0) {
+
+            SoundsManager::GetInstance()->StopEffect();
+
+            if (ProcessFigures()) {
+                StartSound("WinningSound");
+            } else {
+                StartSound("FailedSound");
+            }
+
+            buttonStart->SetActive(isActive);
+            buttonStop->SetActive(true);
+            buttonStop->SetSourceX(SIZE_WIDGHT_BUTTON*2);
+
+            SoundsManager::GetInstance()->PlayMusic("MainTheme");
+
         }
-
-        button->SetActive(isActive);
     }
 }
 
@@ -223,4 +266,16 @@ bool GameManager::ProcessFigures() {
     }
     
     return true;
+}
+
+void GameManager::UpdateButtons() {
+
+    for (auto & button : _buttons) {
+        button.second->Draw(_renderer);
+        button.second->Update(*_cursor);
+    }
+}
+
+void GameManager::ExitGame() {
+    _isRunning = false;
 }

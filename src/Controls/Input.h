@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <SDL2/SDL.h>
-#include "Axis.h"
+#include "../Enums/Axis.h"
 
 class Input
 {

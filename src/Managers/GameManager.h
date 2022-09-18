@@ -28,19 +28,21 @@ public:
     
     void SetConditionButtons(); 
     void SetActiveButtonPlay(bool isActive = false);
-    void SetActiveButtonStop(bool isActive = false);
-    void SetActiveButtonExit(bool isActive = false);
     
 private:
     void CreateCursor(std::string textureID);
     void CreateSlot();
     void CreateButtons();
     void Draw();
+    void UpdateButtons();
     void CreateObjects();
     void DestroyObjects();
     static void StartSound(std::string soundID);
     static void StartMusic(std::string musicID);
+    
     void PlayRound();
+    void StopRound();
+    void ExitGame();
     
     int GenerateFigures(ushort minValue = 0, ushort maxValue = 1);
     bool ProcessFigures();

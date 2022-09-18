@@ -5,8 +5,9 @@
 #include "../Controls/Input.h"
 #include "thread"
 
-#define ROTATE_SPEED_IN_FRAME 2000
-#define SPEED 10.0f
+#define ROTATE_SPEED_IN_FRAME 10000
+#define SPEED 17.0f
+#define SIZE_WIDTH_FIGURES 334
 
 void Rotate(SDL_Rect *source, SDL_Rect *dest);
 
@@ -62,10 +63,10 @@ void Slot::Update(float dt)
             }
             
             if (((int)_timeRunning%100) == 0) {
-                _speed-=0.5f;
+                _speed-=1.f;
             } 
             
-            if (_source.y > 2900 || _source.y < 0) {
+            if (_source.y >= 3000 || _source.y <= 0) {
                 _source.y = 0;
             }
         }
@@ -102,9 +103,6 @@ void Slot::CorrectPositionSlots() {
     FindIndexFigure();
     _speed = SPEED;
     _isRunning = false;
-    
-    SoundsManager::GetInstance()->StopEffect();
-    SoundsManager::GetInstance()->PlayMusic("MainTheme");
 
     GameManager::GetInstance()->SetActiveButtonPlay(false);
 }
@@ -116,10 +114,19 @@ int Slot::GetIndexFigure() {
 void Slot::FindIndexFigure() {
     int maxValue = _source.y;
     _indexFigure = 0;
-    
-    while (maxValue > 337) {
-        maxValue-=337;
+
+    while (maxValue > SIZE_WIDTH_FIGURES) {
+        maxValue-=SIZE_WIDTH_FIGURES;
         _indexFigure++;
-        
+    } 
+    
+    if (_indexFigure == 9) {
+        _indexFigure = 0;
     }
+}
+
+void Slot::StopRotate() {
+    if (_isRunning && _speed >= 10.f) {
+        _speed = 10.f;
+    } 
 }

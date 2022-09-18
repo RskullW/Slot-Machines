@@ -20,6 +20,7 @@ public:
     void Update(float dt);
     
     void StartRotate();
+    void StopRotate();
     int GetIndexFigure();
 
 private:

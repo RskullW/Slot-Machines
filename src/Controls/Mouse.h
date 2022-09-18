@@ -12,8 +12,8 @@ public:
 
     Mouse(std::string textureID) {
         _texture = TextureManager::GetInstance()->GetTexture(textureID);
-        _rect.w = _rect.h = 30;
-        _point.w = _point.h = 30;
+        _rect.w = _rect.h = 25;
+        _point.w = _point.h = 25;
 
         SDL_ShowCursor(false);
     }
